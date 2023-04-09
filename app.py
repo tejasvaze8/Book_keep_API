@@ -7,6 +7,7 @@ app = Flask(__name__)
 def index():
     pass
 
+#added url with graphiql embedding
 app.add_url_rule(
     '/',
     view_func= GraphQLView.as_view(
