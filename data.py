@@ -12,6 +12,7 @@ books = [
     }
 ]
 
+# old pkl code
 # afile = open(r'C:\d.pkl', 'ab')
 # pickle.dump(books, afile)
 # afile.close()
