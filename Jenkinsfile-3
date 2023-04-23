@@ -1,11 +1,32 @@
 pipeline {
-    agent any
+    agent {label 'macOS'}
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '%'))
+    }
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials('tvaze-dockerhub')
+    }
 
     stages {
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                sh 'docker build -t myimage .'
+                sh 'docker build -t tvaze/graphql-books-2.0:latest .'
             }
+        }
+        stage('Login'){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Push'){
+            steps{
+                sh 'docker push tvaze/graphql-books-2.0:latest'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }

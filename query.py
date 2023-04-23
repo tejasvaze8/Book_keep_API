@@ -1,5 +1,4 @@
 from graphene import ObjectType
-from data import books
 import pickle
 
 

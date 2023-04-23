@@ -1,27 +1,13 @@
-pipeline{
+pipeline {
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+               sh 'docker push tvaze/graphql-books-2.0:lts'
+               sh 'python3 --version'
+               echo 'Testing Complete'
 
-
-  agent any
-  
-  stages {
-    
-    stage("build"){
-      steps{
-        echo 'building the application....'
-      }
+            }
+        }
     }
-    
-    stage("test"){
-      steps {
-        echo 'testing the application...'
-      }
-    }
-    
-    stage("deploy"){
-      steps {
-        echo 'deploying the application... '
-      }
-    }
-    
-  }
 }
